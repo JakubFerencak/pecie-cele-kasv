@@ -4,9 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { Auth } from '../../entities/auth';
-import { F } from '@angular/cdk/keycodes';
+import { F, R } from '@angular/cdk/keycodes';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../../../entities/auth';
+
+
 
 
 @Component({
@@ -18,7 +20,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class LoginComponent {
   hide = true;
-  auth = new Auth("Peter","sovy");
+  auth = new Auth("Jakub","mato");
 
   login() {
     console.log(this.auth);
