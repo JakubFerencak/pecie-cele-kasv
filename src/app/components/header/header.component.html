@@ -2,13 +2,28 @@
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
+
   <span>Pečie celé KASV</span>
-  <a routerLink="/users" mat-button>Users</a>
-  <span class="spacer"></span> 
-         <a routerLink="/register" mat-button>
-          <mat-icon>person_add</mat-icon>Register
-        </a>
-        <a routerLink="/login" mat-button>
-           <mat-icon>login</mat-icon> Login
-        </a>
+  <a routerLink="/" mat-button>Home</a>
+  <ng-container *ngIf="isLoggedIn">
+  <a routerLink="/add-recipe" mat-button>
+    <mat-icon>add recipe</mat-icon>Add Recipe</a>
+  </ng-container>
+  <span class="spacer"></span>
+
+  <ng-container *ngIf=!isLoggedIn;>
+    <a routerLink="/register" mat-button>
+    <mat-icon>register</mat-icon>Register
+    </a>
+  </ng-container>
+  <!-- Show Login if not logged in, and Logout if logged in -->
+  <ng-container *ngIf="!isLoggedIn; else logoutBtn">
+    <a routerLink="/login" mat-button>
+      <mat-icon>login</mat-icon>Login
+    </a>
+  </ng-container>
+
+  <ng-template #logoutBtn>
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-template>
 </mat-toolbar>

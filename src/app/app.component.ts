@@ -1,17 +1,14 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./components/header/header.component";
-import { MainPageComponent } from "./components/main-page/main-page.component";
-
-
-
+import { HeaderComponent } from './components/header/header.component'; // Ensure the path is correct
+import { RouterModule } from '@angular/router'; // Import RouterModule
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, MainPageComponent],
+  standalone: true,
+  imports: [HeaderComponent, RouterModule], // Include RouterModule here
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pecie-cele-kasv';
+  title = 'app';
 }

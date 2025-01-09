@@ -1,15 +1,15 @@
-import { Group } from "./group";
+  import { Group } from "./group";
 
 export class User {
   public static clone(user: User): User {
-    return new User(user.name, 
-                    user.email, 
+    return new User(user.name,
+                    user.email,
                     user.id,
                     user.active === undefined ? true : user.active,
-                    user.groups?.map(group => Group.clone(group)), 
-                    user.lastLogin, 
+                    user.groups?.map(group => Group.clone(group)),
+                    user.lastLogin,
                     user.password);
-  } 
+  }
 
   constructor(
     public name: string,
