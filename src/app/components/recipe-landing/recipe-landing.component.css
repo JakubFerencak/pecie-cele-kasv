@@ -1,0 +1,13 @@
+.recipe-container {
+  padding: 20px;
+}
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.recipe-card {
+  width: 300px;
+}
