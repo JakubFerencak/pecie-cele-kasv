@@ -4,19 +4,24 @@
   </button>
 
   <span>Pečie celé KASV</span>
-  <a routerLink="/" mat-button>Home</a>
-  <ng-container *ngIf="isLoggedIn">
-  <a routerLink="/add-recipe" mat-button>
-    <mat-icon>add recipe</mat-icon>Add Recipe</a>
-  </ng-container>
-  <span class="spacer"></span>
+  
+  <!-- Tlačidlo Home -->
+  <a routerLink="/recipe-landing" mat-button>Home</a> <!-- Link vedúci na recipe-landing -->
 
-  <ng-container *ngIf=!isLoggedIn;>
-    <a routerLink="/register" mat-button>
-    <mat-icon>register</mat-icon>Register
+  <ng-container *ngIf="isLoggedIn">
+    <a mat-button (click)="openAddRecipeDialog()">
+      <mat-icon>add</mat-icon>Add Recipe
     </a>
   </ng-container>
-  <!-- Show Login if not logged in, and Logout if logged in -->
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="!isLoggedIn">
+    <a routerLink="/register" mat-button>
+      <mat-icon>register</mat-icon>Register
+    </a>
+  </ng-container>
+  
   <ng-container *ngIf="!isLoggedIn; else logoutBtn">
     <a routerLink="/login" mat-button>
       <mat-icon>login</mat-icon>Login

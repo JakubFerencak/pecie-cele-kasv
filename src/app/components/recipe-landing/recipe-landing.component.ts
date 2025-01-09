@@ -17,9 +17,16 @@ export class RecipeLandingComponent implements OnInit {
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit(): void {
-    this.recipeService.getRecipes().subscribe(
-      (data) => this.recipes = data,
-      (error) => console.error(error)
-    );
+    // Načítame recepty prihláseného používateľa
+    this.recipeService.getRecipes().subscribe((recipes) => {
+      this.recipes = recipes;  // Uložíme recepty do premennej
+    });
   }
+
+    // Pridajte metódu viewRecipe, ktorá sa zavolá pri kliknutí na tlačidlo
+    viewRecipe(recipe: Recipe): void {
+      // Tu môžete spracovať zobrazenie detailov receptu (napr. zobraziť ďalšie informácie v dialógovom okne alebo inej stránke)
+      console.log('Zobraziť recept:', recipe);
+}
+
 }

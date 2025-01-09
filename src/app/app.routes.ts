@@ -7,4 +7,5 @@ export const routes: Routes = [
   { path: '', component: RecipeLandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  {path: 'app-recipe-landing', component: RecipeLandingComponent}
 ];

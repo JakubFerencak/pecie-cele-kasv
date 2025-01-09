@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   login(data: { username: string, password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, data).pipe(
+    return this.http.post(`${this.baseUrl}/login`, data, { withCredentials: true }).pipe(
       // Assuming backend sets the cookie, after login, mark as logged in
       tap(() => {
         this.isLoggedInSubject.next(true); // Update login status
@@ -40,5 +40,10 @@ export class AuthService {
     // Clear any authentication data
     this.isLoggedInSubject.next(false); // Set logged out state
     localStorage.removeItem('isLoggedIn'); // Clear the login status in localStorage
+  }
+
+  // Get current logged-in user info
+  getCurrentUser(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/current_user`, { withCredentials: true });
   }
 }

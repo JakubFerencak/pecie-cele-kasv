@@ -7,5 +7,8 @@
     <mat-card-content>
       <p>{{ recipe.description }}</p>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="viewRecipe(recipe)">View Recipe</button>
+    </mat-card-actions>
   </mat-card>
 </div>

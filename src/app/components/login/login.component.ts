@@ -5,8 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
-import {HttpClient, HttpHeaders} from '@angular/common/http';  // Import HttpClient
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service';  // Import AuthService
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,23 +22,23 @@ export class LoginComponent {
   };
   hide = true;
   isLoggedIn = false;  // Track login state
+  loading: boolean = false; // Loading state
+  errorMessage: string = ''; // Error message state
 
   constructor(private authService: AuthService, private router: Router) {}
 
   login() {
-    const loginData = {
-      username: this.auth.username,
-      password: this.auth.password
-    };
-
-    this.authService.login(loginData).subscribe(
+    this.loading = true; // Activate loading
+    this.authService.login(this.auth).subscribe(
       (response) => {
+        this.loading = false;
         console.log('Login successful', response);
-        this.isLoggedIn = true;  // Set login state to true
-        // Store user data or session cookie here if needed
-        this.router.navigate(['/']);  // Redirect to home on successful login
+        this.isLoggedIn = true; // Set login state to true
+        this.router.navigate(['/']); // Redirect to home on successful login
       },
       (error) => {
+        this.loading = false; // Deactivate loading
+        this.errorMessage = 'Login failed. Please check your username and password.'; // Show error message
         console.error('Login failed', error);
       }
     );
