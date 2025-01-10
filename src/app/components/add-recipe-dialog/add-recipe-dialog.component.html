@@ -1,14 +1,14 @@
 <h1 mat-dialog-title>Add New Recipe</h1>
-<div mat-dialog-content>
-  <mat-form-field appearance="fill">
+<form class="example-form">
+  <mat-form-field class="example-full-width">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="recipe.title" />
+    <input matInput placeholder="Title" [(ngModel)]="recipe.title" name="title">
   </mat-form-field>
-  <mat-form-field appearance="fill">
+  <mat-form-field class="example-full-width">
     <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="recipe.description"></textarea>
+    <textarea matInput placeholder="Description" [(ngModel)]="recipe.description" name="description"></textarea>
   </mat-form-field>
-</div>
+</form>
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">Cancel</button>
   <button mat-button (click)="saveRecipe()">Add</button>

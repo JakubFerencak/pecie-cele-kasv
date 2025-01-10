@@ -1,49 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://127.0.0.1:8000'; // Adjust your backend address
-  private isLoggedInSubject = new BehaviorSubject<boolean>(false); // Store the login state
+  private apiUrl = 'http://127.0.0.1:8000';
+  private loginStatus = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient) {
-    // Try to get initial login state from localStorage (if you want persistence)
-    const storedLoginState = localStorage.getItem('isLoggedIn');
-    if (storedLoginState === 'true') {
-      this.isLoggedInSubject.next(true);
-    }
-  }
+  constructor(private http: HttpClient) { }
 
-  // Observable to watch login state
   getLoginStatus(): Observable<boolean> {
-    return this.isLoggedInSubject.asObservable();
+    return this.loginStatus.asObservable();
   }
 
-  register(data: { username: string, email: string, password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/register`, data);
-  }
-
-  login(data: { username: string, password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/login`, data, { withCredentials: true }).pipe(
-      // Assuming backend sets the cookie, after login, mark as logged in
-      tap(() => {
-        this.isLoggedInSubject.next(true); // Update login status
-        localStorage.setItem('isLoggedIn', 'true'); // Save login status
-      })
-    );
-  }
-
-  logout() {
-    // Clear any authentication data
-    this.isLoggedInSubject.next(false); // Set logged out state
-    localStorage.removeItem('isLoggedIn'); // Clear the login status in localStorage
-  }
-
-  // Get current logged-in user info
   getCurrentUser(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/current_user`, { withCredentials: true });
+    return this.http.get<any>(`${this.apiUrl}/current_user`, { withCredentials: true });
+  }
+
+  login(username: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/login`, { username, password }, { withCredentials: true });
+  }
+
+  logout(): void {
+    // Implement logout logic here
+    this.loginStatus.next(false);
   }
 }
