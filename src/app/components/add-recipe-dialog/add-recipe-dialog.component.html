@@ -1,15 +1,66 @@
 <h1 mat-dialog-title>Add New Recipe</h1>
-<form class="example-form">
+<form class="example-form" #f="ngForm" (ngSubmit)="saveRecipe(f)">
   <mat-form-field class="example-full-width">
     <mat-label>Title</mat-label>
-    <input matInput placeholder="Title" [(ngModel)]="recipe.title" name="title">
+    <input
+      matInput
+      required
+      name="title"
+      [(ngModel)]="recipe.title"
+      #titleCtrl="ngModel"
+    />
+    <mat-error *ngIf="titleCtrl.invalid && titleCtrl.touched">Title je povinný</mat-error>
   </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <mat-label>Description</mat-label>
-    <textarea matInput placeholder="Description" [(ngModel)]="recipe.description" name="description"></textarea>
+    <textarea
+      matInput
+      required
+      name="description"
+      [(ngModel)]="recipe.description"
+      #descCtrl="ngModel"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="6"
+      style="resize:none"
+    ></textarea>
+    <mat-error *ngIf="descCtrl.invalid && descCtrl.touched">Description je povinné</mat-error>
   </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Image URL</mat-label>
+    <input matInput name="image" [(ngModel)]="recipe.image"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Steps</mat-label>
+    <textarea
+      matInput
+      name="procedure"
+      [(ngModel)]="recipe.procedure"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="6"
+      style="resize:none"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Ingredients</mat-label>
+    <textarea
+      matInput
+      name="ingredients"
+      [(ngModel)]="recipe.ingredients"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="2"
+      cdkAutosizeMaxRows="6"
+      style="resize:none"
+    ></textarea>
+  </mat-form-field>
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="closeDialog()">Cancel</button>
+    <button mat-button type="submit" [disabled]="f.invalid">Add</button>
+  </div>
 </form>
-<div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Cancel</button>
-  <button mat-button (click)="saveRecipe()">Add</button>
-</div>

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RecipeLandingComponent } from './recipe-landing.component';
+import {RecipeLandingComponent} from './recipe-landing.component';
 
 describe('RecipeLandingComponent', () => {
   let component: RecipeLandingComponent;
@@ -10,7 +10,7 @@ describe('RecipeLandingComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RecipeLandingComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(RecipeLandingComponent);
     component = fixture.componentInstance;

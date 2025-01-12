@@ -1,0 +1,14 @@
+<mat-card class="view-recipe-card">
+  <mat-card-header>
+    <mat-card-title>{{ recipe.title }}</mat-card-title>
+  </mat-card-header>
+  <img *ngIf="recipe.image" mat-card-image [src]="recipe.image">
+  <mat-card-content>
+    <p><strong>Description:</strong> {{ recipe.description }}</p>
+    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Procedure:</strong> {{ recipe.procedure }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="close()">Close</button>
+  </mat-card-actions>
+</mat-card>
