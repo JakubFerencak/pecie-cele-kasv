@@ -15,7 +15,14 @@ import {CommonModule} from '@angular/common';
   imports: [CommonModule, MatDialogModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, TextFieldModule]
 })
 export class AddRecipeDialogComponent implements OnInit {
-  recipe: Recipe = {id: 0, title: '', description: '', author: '', image: '', procedure: '', ingredients: ''};
+  recipe: Recipe = {
+    id: 0, 
+    title: '', 
+    description: '', 
+    author: '',
+    image: '', 
+    procedure: '',
+    ingredients: ''};
 
   constructor(
     private dialogRef: MatDialogRef<AddRecipeDialogComponent>,
