@@ -12,12 +12,18 @@ mat-toolbar {
   color: #000;
   font-size: 2em;
   flex-grow: 1;
-  margin: 0 auto;
+  margin:0 auto;
+ 
+}
+
+.mat-icon {
+  font-size: 2rem;
 }
 
 .home-button, .register-button, .login-button, .add-recipe-button, .logout-button {
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin: 5px;
+ 
 }
 
 @media (max-width: 768px) {
@@ -34,6 +40,7 @@ mat-toolbar {
   .home-button, .register-button, .login-button, .add-recipe-button, .logout-button {
     font-size: 1rem;
     margin: 3px;
+  
   }
 }
 

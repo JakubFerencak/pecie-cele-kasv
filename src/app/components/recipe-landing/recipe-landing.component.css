@@ -3,10 +3,11 @@
   grid-template-columns: repeat(auto-fit, 300px);
   justify-content: center;
   padding: 10px;
+  gap: 21px;
 }
 
 .recipe-card {
-  width: 300px;
+  width: 350px;
   min-height: 200px;
   padding: 10px;
   margin: 10px;

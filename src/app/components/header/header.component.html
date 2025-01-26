@@ -1,7 +1,7 @@
 <mat-toolbar>
 
 
-  <a routerLink="/" mat-button class="home-button">Home</a>
+  <a routerLink="/" mat-button class="home-button">Home <mat-icon>home</mat-icon></a>
   <ng-container *ngIf="isLoggedIn">
     <a mat-button class="add-recipe-button" (click)="openAddRecipeDialog()">
       <mat-icon>add</mat-icon>

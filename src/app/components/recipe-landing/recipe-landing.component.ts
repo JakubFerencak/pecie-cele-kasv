@@ -5,13 +5,15 @@ import {MatDialog} from '@angular/material/dialog';
 import {AuthService} from '../../services/auth.service';
 import {RecipeService, Recipe} from '../../services/recipe.service';
 import {EditRecipeDialogComponent} from '../edit-recipe-dialog/edit-recipe-dialog.component';
-import {MatButton} from '@angular/material/button';
+import {MatButton, MatIconButton} from '@angular/material/button';
 import {ViewRecipeComponent} from '../view-recipe/view-recipe.component';
+import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-recipe-landing',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButton],
+  imports: [CommonModule, MatCardModule, MatButton,MatIconModule],
   templateUrl: './recipe-landing.component.html',
   styleUrls: ['./recipe-landing.component.css']
 })
@@ -29,44 +31,49 @@ export class RecipeLandingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {
+    this.authService.getCurrentUser().subscribe(user => {         //ziskavaa udaje o prihlasenom uzivatelovi
       if (user) {
         this.currentUser = user.username;
         this.isAdmin = user.is_admin;
       }
     });
-    this.recipeService.recipes$.subscribe((recipes) => {
+    this.recipeService.recipes$.subscribe((recipes) => {           //sleduje zmeny v receptoch
       this.recipes = recipes;
       this.cd.detectChanges();
     });
     this.recipeService.fetchRecipes();
   }
 
-  viewRecipe(recipe: Recipe): void {
-    this.dialog.open(ViewRecipeComponent, {
+  viewRecipe(recipe: Recipe): void {                 //zobrazi dialogove okno s receptom
+    this.dialog.open(ViewRecipeComponent, {          //vytvori dialogove okno s receptom a odovzda mu data
       data: {...recipe}
     });
   }
 
-  canEditOrDelete(recipe: Recipe): boolean {
+  canEditOrDelete(recipe: Recipe): boolean {         // kontroluje ci uzivatel moze upravit alebo vymazat recept
     return this.isAdmin || recipe.author === this.currentUser;
   }
 
   deleteRecipe(recipeId: number): void {
-    if (!this.isAdmin && !this.canDeleteAsAuthor(recipeId)) {
-      return;
-    }
-    const token = localStorage.getItem('token');
-    this.recipeService.deleteRecipe(recipeId, token!).subscribe(() => {
-      this.recipeService.fetchRecipes();
+    const dialogRef = this.dialog.open(ConfirmDeleteDialogComponent, {
+      width: '500px',
     });
-  }
+  
+    dialogRef.afterClosed().subscribe((confirmed) => {
+      if (confirmed) {
+        const token = localStorage.getItem('token');
+        this.recipeService.deleteRecipe(recipeId, token!).subscribe(() => {
+          this.recipeService.fetchRecipes();
+        });
+      }
+    });
+  } 
 
   openEditDialog(recipe: Recipe): void {
-    if (!this.canEditOrDelete(recipe)) {
+    if (!this.canEditOrDelete(recipe)) {     // ak nema pravo upravit recept, tak zrusi akciu
       return;
     }
-    const dialogRef = this.dialog.open(EditRecipeDialogComponent, {
+    const dialogRef = this.dialog.open(EditRecipeDialogComponent, {   //otvori okno pre upravu receptu
       data: {...recipe}
     });
     dialogRef.afterClosed().subscribe((updatedRecipe: Recipe | undefined) => {
@@ -79,11 +86,11 @@ export class RecipeLandingComponent implements OnInit {
     });
   }
 
-  private canDeleteAsAuthor(recipeId: number): boolean {
-    const recipe = this.recipes.find((r) => r.id === recipeId);
-    if (!recipe) {
+  private canDeleteAsAuthor(recipeId: number): boolean {    // overuje ci autor moze zmazat recept
+    const recipe = this.recipes.find((r) => r.id === recipeId);     //najde recept podla id
+    if (!recipe) {     //ak recept neexistuje, tak false
       return false;
     }
-    return recipe.author === this.currentUser;
+    return recipe.author === this.currentUser;     // povolenei zmazat recept len autori
   }
 }
