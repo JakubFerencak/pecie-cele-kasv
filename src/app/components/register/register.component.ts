@@ -66,10 +66,15 @@ export class RegisterComponent {
         this.errorMessage = null; // Vynulovanie chybovej správy
       },
       error => {
-        // Ak registrácia zlyhá
-        console.error('Registration failed:', error); // Debugging - výpis chyby do konzoly
-        this.errorMessage = 'Registration failed.'; // Nastavenie chybovej správy
-        this.successMessage = null; // Vynulovanie správy o úspechu
+       
+        console.error('Registration failed:', error); 
+        if (error.status === 409) { // Ak server vráti HTTP 409 - Conflict
+          this.errorMessage = 'Username is already taken.';
+        } else {
+          this.errorMessage = 'Registration failed. Please try again.';
+        }
+  
+        this.successMessage = null;
       }
     );
   }

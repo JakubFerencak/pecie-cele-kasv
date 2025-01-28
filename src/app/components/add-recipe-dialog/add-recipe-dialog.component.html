@@ -8,9 +8,12 @@
       name="title"
       [(ngModel)]="recipe.title"
       #titleCtrl="ngModel"
+      (ngModelChange)="validateTitle()"
+    
     />
     <mat-error *ngIf="titleCtrl.invalid && titleCtrl.touched">Title je povinný</mat-error>
-    <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
+    
+    
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
@@ -20,6 +23,7 @@
       required
       name="description"
       [(ngModel)]="recipe.description"
+      (ngModelChange)="validateDescription()"
       #descCtrl="ngModel"
       cdkTextareaAutosize
       cdkAutosizeMinRows="2"
@@ -60,8 +64,12 @@
     ></textarea>
   </mat-form-field>
 
+  <mat-error *ngIf="titleErrorMessage">{{ titleErrorMessage }}</mat-error>
+  <mat-error *ngIf="descriptionErrorMessage">{{ descriptionErrorMessage }}</mat-error>
+
   <div mat-dialog-actions>
     <button mat-button type="button" (click)="closeDialog()">Cancel</button>
     <button mat-button type="submit" [disabled]="f.invalid">Add</button>
   </div>
+ 
 </form>

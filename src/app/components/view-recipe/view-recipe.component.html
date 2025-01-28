@@ -5,7 +5,10 @@
   <img *ngIf="recipe.image" mat-card-image [src]="recipe.image">
   <mat-card-content>
     <p><strong>Description:</strong> {{ recipe.description }}</p>
-    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Ingredients:</strong></p>
+    <div class="ingredients">
+      <span *ngFor="let ingredient of recipe.ingredients?.split(',')">{{ ingredient.trim() }}</span>
+    </div>
     <p><strong>Procedure:</strong> {{ recipe.procedure }}</p>
   </mat-card-content>
   <mat-card-actions>

@@ -2,13 +2,15 @@
 <form class="example-form">
   <mat-form-field class="example-full-width">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="recipe.title" name="title"/>
+    <input matInput [(ngModel)]="recipe.title" name="title"
+    (ngModelChange)="validateTitle()"
+    />
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
     <mat-label>Description</mat-label>
     <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="12"
-              [(ngModel)]="recipe.description" name="description"></textarea>
+              [(ngModel)]="recipe.description" name="description" (ngModelChange)="validateDescription()"></textarea>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">
@@ -27,6 +29,10 @@
     <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="12"
               [(ngModel)]="recipe.ingredients" name="ingredients"></textarea>
   </mat-form-field>
+
+  <mat-error *ngIf="titleErrorMessage">{{ titleErrorMessage }}</mat-error>
+  <mat-error *ngIf="descriptionErrorMessage">{{ descriptionErrorMessage }}</mat-error>
+
 </form>
 <div mat-dialog-actions>
   <button mat-button (click)="closeDialog()">Cancel</button>

@@ -32,6 +32,10 @@ export class EditRecipeDialogComponent implements OnInit {
     author: ''
   };
 
+
+  titleErrorMessage = '';
+  descriptionErrorMessage = '';
+
   constructor(
     private dialogRef: MatDialogRef<EditRecipeDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Recipe
@@ -50,5 +54,31 @@ export class EditRecipeDialogComponent implements OnInit {
 
   saveRecipe(): void {
     this.dialogRef.close(this.recipe);
+  
+
+
+  if (this.titleErrorMessage || this.descriptionErrorMessage) {
+    console.error('Form contains errors:', this.titleErrorMessage, this.descriptionErrorMessage);
+    return;
   }
+ }
+
+ validateTitle(): void {
+  const maxLength = 20;
+  if (this.recipe.title.length > maxLength) {
+    this.titleErrorMessage = `Title must be less than ${maxLength} characters`;
+  } else {
+    this.titleErrorMessage = '';
+  }
+}
+
+validateDescription(): void {
+  const maxLength = 50; // Nastavené iné obmedzenie pre popis
+  if (this.recipe.description.length > maxLength) {
+    this.descriptionErrorMessage = `Description must be less than ${maxLength} characters`;
+  } else {
+    this.descriptionErrorMessage = '';
+  }
+}
+
 }

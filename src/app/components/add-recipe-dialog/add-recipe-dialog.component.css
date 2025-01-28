@@ -14,3 +14,8 @@
   overflow-y: auto;
   resize: none;
 }
+
+.title_error {
+  color: green;
+  margin-left: 2rem;
+}

@@ -1,0 +1,10 @@
+.ingredients {
+    display: flex;
+    flex-direction: column; /* Každá ingrediencia na novom riadku */
+    gap: 5px; /* Medzera medzi ingredienciami */
+  }
+  
+  .ingredients span {
+    display: block;
+  }
+  
