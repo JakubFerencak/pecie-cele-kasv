@@ -10,6 +10,7 @@
       #titleCtrl="ngModel"
     />
     <mat-error *ngIf="titleCtrl.invalid && titleCtrl.touched">Title je povinný</mat-error>
+    <mat-error *ngIf="errorMessage">{{errorMessage}}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width">

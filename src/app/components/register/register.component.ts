@@ -8,10 +8,13 @@ import {FormsModule, NgForm} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
+
+// Dekorátor @Component definuje komponentu Angularu, vrátane selektora, šablóny a štýlov
 @Component({
-  selector: 'app-register',
-  standalone: true,
+  selector: 'app-register', // Názov selektora, ktorý reprezentuje túto komponentu v HTML
+  standalone: true, // Komponenta je samostatná (nemusí byť súčasťou modulu)
   imports: [
+    // Importy potrebných modulov z Angular Material a Angularu
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -20,55 +23,54 @@ import {Router} from '@angular/router';
     FormsModule,
     CommonModule,
   ],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  templateUrl: './register.component.html', // Cesta k HTML šablóne tejto komponenty
+  styleUrls: ['./register.component.css'], // Cesta k CSS súboru s štýlmi pre túto komponentu
 })
 export class RegisterComponent {
-  hide = true;
-  errorMessage: string | null = '';
-  successMessage: string | null = '';
+  hide = true; // Premenná na prepínanie zobrazenia/skrývania hesla
+  errorMessage: string | null = ''; // Premenná na uloženie chybovej správy
+  successMessage: string | null = ''; // Premenná na uloženie správy o úspechu
   auth = {
+    // Objekt na uchovanie údajov registračného formulára
     username: '',
     email: '',
     password: '',
     confirmPassword: '',
   };
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  // Konštruktor na inicializáciu AuthService a Router, ktoré sú injektované pomocou Dependency Injection
+  constructor(private authService: AuthService, private router: Router) {}
 
+  // Funkcia register() sa vykoná pri odoslaní registračného formulára
   register(form: NgForm) {
-    const { username, email, password, confirmPassword } = this.auth;
+    const { username, email, password, confirmPassword } = this.auth; // Destrukturalizácia údajov z auth objektu
 
-
+    // Kontrola, či sa heslá zhodujú
     if (password !== confirmPassword) {
-      this.errorMessage = 'Passwords do not match.';
-      this.successMessage = null;
-      return;
+      this.errorMessage = 'Passwords do not match.'; // Nastavenie chybovej správy
+      this.successMessage = null; // Vynulovanie správy o úspechu
+      return; // Ukončenie funkcie, ak heslá nesúhlasia
     }
 
-    const payload = { username, email, password };
+    const payload = { username, email, password }; // Vytvorenie objektu s údajmi na odoslanie na backend
 
-    console.log('Sending to backend:', payload);
-    if (password !== confirmPassword) {
-      this.errorMessage = 'Passwords do not match.';
-      this.successMessage = null;
-      return;
-    }
+    console.log('Sending to backend:', payload); // Debugging - výpis údajov do konzoly
 
-    this.authService.register({username, email, password}).subscribe(
+    // Zavolanie služby AuthService na odoslanie registračných údajov na backend
+    this.authService.register({ username, email, password }).subscribe(
       response => {
-        console.log('Registration successful:', response);
-        this.successMessage = 'Registration successful!';
-        this.router.navigate(['/login']);
-        this.errorMessage = null;
+        // Ak registrácia prebehne úspešne
+        console.log('Registration successful:', response); // Debugging - výpis úspešnej odpovede
+        this.successMessage = 'Registration successful!'; // Nastavenie správy o úspechu
+        this.router.navigate(['/login']); // Presmerovanie užívateľa na stránku prihlásenia
+        this.errorMessage = null; // Vynulovanie chybovej správy
       },
       error => {
-        console.error('Registration failed:', error);
-        this.errorMessage = 'Registration failed.';
-        this.successMessage = null;
+        // Ak registrácia zlyhá
+        console.error('Registration failed:', error); // Debugging - výpis chyby do konzoly
+        this.errorMessage = 'Registration failed.'; // Nastavenie chybovej správy
+        this.successMessage = null; // Vynulovanie správy o úspechu
       }
     );
   }
-
 }

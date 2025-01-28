@@ -59,7 +59,7 @@ export class RecipeLandingComponent implements OnInit {
       width: '500px',
     });
   
-    dialogRef.afterClosed().subscribe((confirmed) => {
+    dialogRef.afterClosed().subscribe((confirmed) => {  //
       if (confirmed) {
         const token = localStorage.getItem('token');
         this.recipeService.deleteRecipe(recipeId, token!).subscribe(() => {

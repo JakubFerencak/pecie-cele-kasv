@@ -24,6 +24,8 @@ export class AddRecipeDialogComponent implements OnInit {
     procedure: '',
     ingredients: ''};
 
+    errorMessage = '';
+
   constructor(
     private dialogRef: MatDialogRef<AddRecipeDialogComponent>,
     private recipeService: RecipeService
@@ -35,6 +37,16 @@ export class AddRecipeDialogComponent implements OnInit {
 
   closeDialog(): void {
     this.dialogRef.close();
+  }
+
+  validateTitle():boolean{
+    const maxLength = 50;
+    if(this.recipe.title.length > maxLength){
+      this.errorMessage = `Title must be less than ${maxLength} characters`;
+      return false;
+    }
+    this.errorMessage = '';
+    return true;  
   }
 
   saveRecipe(f: NgForm): void {

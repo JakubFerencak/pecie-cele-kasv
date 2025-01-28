@@ -15,11 +15,11 @@ export class ConfirmDeleteDialogComponent {
   ) {}
 
   onCancel(): void {
-    this.dialogRef.close(false); // Zavrie dialog a vráti false
+    this.dialogRef.close(false); 
   }
 
   onConfirm(): void {
-    this.dialogRef.close(true); // Zavrie dialog a vráti true
+    this.dialogRef.close(true); 
   }
 }
 
