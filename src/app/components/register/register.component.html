@@ -4,6 +4,8 @@
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+
+
       <!-- Username Field -->
       <mat-form-field>
         <mat-label>Username</mat-label>
@@ -16,6 +18,9 @@
         />
         <mat-error *ngIf="u.invalid && u.touched">
           <span *ngIf="u.errors?.['required']">Username is required.</span>
+        </mat-error>
+        <mat-error *ngIf="errorMessage === 'Username is already taken.'">
+          {{ errorMessage }}
         </mat-error>
       </mat-form-field>
 
@@ -98,6 +103,9 @@
 
   <!-- Global Success/Error Messages -->
 
+   <mat-error *ngIf="errorMessage === 'User already registered.'">
+    {{ errorMessage }}
+  </mat-error>
   <div style="color: green; margin-top: 10px;" *ngIf="successMessage">
     {{ successMessage }}
   </div>

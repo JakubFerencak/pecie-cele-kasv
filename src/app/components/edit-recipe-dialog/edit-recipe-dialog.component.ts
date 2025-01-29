@@ -73,7 +73,7 @@ export class EditRecipeDialogComponent implements OnInit {
 }
 
 validateDescription(): void {
-  const maxLength = 50; // Nastavené iné obmedzenie pre popis
+  const maxLength = 50; 
   if (this.recipe.description.length > maxLength) {
     this.descriptionErrorMessage = `Description must be less than ${maxLength} characters`;
   } else {

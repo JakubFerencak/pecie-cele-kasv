@@ -31,26 +31,26 @@ export class RecipeLandingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {         //ziskavaa udaje o prihlasenom uzivatelovi
+    this.authService.getCurrentUser().subscribe(user => {         
       if (user) {
         this.currentUser = user.username;
         this.isAdmin = user.is_admin;
       }
     });
-    this.recipeService.recipes$.subscribe((recipes) => {           //sleduje zmeny v receptoch
+    this.recipeService.recipes$.subscribe((recipes) => {           
       this.recipes = recipes;
       this.cd.detectChanges();
     });
     this.recipeService.fetchRecipes();
   }
 
-  viewRecipe(recipe: Recipe): void {                 //zobrazi dialogove okno s receptom
-    this.dialog.open(ViewRecipeComponent, {          //vytvori dialogove okno s receptom a odovzda mu data
+  viewRecipe(recipe: Recipe): void {                 
+    this.dialog.open(ViewRecipeComponent, {          
       data: {...recipe}
     });
   }
 
-  canEditOrDelete(recipe: Recipe): boolean {         // kontroluje ci uzivatel moze upravit alebo vymazat recept
+  canEditOrDelete(recipe: Recipe): boolean {         
     return this.isAdmin || recipe.author === this.currentUser;
   }
 
@@ -70,10 +70,10 @@ export class RecipeLandingComponent implements OnInit {
   } 
 
   openEditDialog(recipe: Recipe): void {
-    if (!this.canEditOrDelete(recipe)) {     // ak nema pravo upravit recept, tak zrusi akciu
+    if (!this.canEditOrDelete(recipe)) {   
       return;
     }
-    const dialogRef = this.dialog.open(EditRecipeDialogComponent, {   //otvori okno pre upravu receptu
+    const dialogRef = this.dialog.open(EditRecipeDialogComponent, {   
       data: {...recipe}
     });
     dialogRef.afterClosed().subscribe((updatedRecipe: Recipe | undefined) => {
@@ -86,11 +86,11 @@ export class RecipeLandingComponent implements OnInit {
     });
   }
 
-  private canDeleteAsAuthor(recipeId: number): boolean {    // overuje ci autor moze zmazat recept
-    const recipe = this.recipes.find((r) => r.id === recipeId);     //najde recept podla id
-    if (!recipe) {     //ak recept neexistuje, tak false
+  private canDeleteAsAuthor(recipeId: number): boolean {    
+    const recipe = this.recipes.find((r) => r.id === recipeId);     
+    if (!recipe) {     
       return false;
     }
-    return recipe.author === this.currentUser;     // povolenei zmazat recept len autori
+    return recipe.author === this.currentUser;     
   }
 }

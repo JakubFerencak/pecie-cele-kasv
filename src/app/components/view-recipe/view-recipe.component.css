@@ -7,4 +7,15 @@
   .ingredients span {
     display: block;
   }
+
+  .ingredients-list {
+    list-style-type: number;
+    padding-left: 20px;
+  }
+  
+  .procedure-list {
+    list-style-type: decimal;
+    padding-left: 20px;
+  }
+  
   

@@ -32,4 +32,12 @@ export class ViewRecipeComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
+
+
+  formatList(text?: string): string[] {
+    if (!text) return [];
+    return text.split(/\d+\.\s?/g)
+      .map(item => item.trim()) 
+      .filter(item => item !== ""); 
+  }
 }

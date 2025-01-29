@@ -4,12 +4,25 @@
   </mat-card-header>
   <img *ngIf="recipe.image" mat-card-image [src]="recipe.image">
   <mat-card-content>
+
     <p><strong>Description:</strong> {{ recipe.description }}</p>
+
+    <!-- Ingredients -->
     <p><strong>Ingredients:</strong></p>
-    <div class="ingredients">
-      <span *ngFor="let ingredient of recipe.ingredients?.split(',')">{{ ingredient.trim() }}</span>
-    </div>
-    <p><strong>Procedure:</strong> {{ recipe.procedure }}</p>
+    <ul class="ingredients-list">
+      <li *ngFor="let ingredient of formatList(recipe.ingredients)">
+        {{ ingredient }}
+      </li>
+    </ul>
+
+    <!-- Procedure -->
+    <p><strong>Steps:</strong></p>
+    <ol class="procedure-list">
+      <li *ngFor="let step of formatList(recipe.procedure)">
+        {{ step }}
+      </li>
+    </ol>
+
   </mat-card-content>
   <mat-card-actions>
     <button mat-button (click)="close()">Close</button>

@@ -44,7 +44,7 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err; // err je reťazec z handleError v AuthService
+        this.errorMessage = err; 
       },
     });
   }

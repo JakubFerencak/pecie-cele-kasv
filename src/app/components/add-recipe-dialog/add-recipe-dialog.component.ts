@@ -54,7 +54,7 @@ export class AddRecipeDialogComponent implements OnInit {
       return;
     }
   
-    // Ak existuje chyba, zabránime odoslaniu formulára
+   
     if (this.titleErrorMessage || this.descriptionErrorMessage) {
       console.error('Form contains errors:', this.titleErrorMessage, this.descriptionErrorMessage);
       return;
@@ -83,7 +83,7 @@ export class AddRecipeDialogComponent implements OnInit {
   }
 
   validateDescription(): void {
-    const maxLength = 50; // Nastavené iné obmedzenie pre popis
+    const maxLength = 50; 
     if (this.recipe.description.length > maxLength) {
       this.descriptionErrorMessage = `Description must be less than ${maxLength} characters`;
     } else {
