@@ -1,35 +1,112 @@
-<form (ngSubmit)="register()">
+<form #regForm="ngForm" (ngSubmit)="register(regForm)">
   <mat-card class="example-card" appearance="outlined">
     <mat-card-header>
       <mat-card-title>Register</mat-card-title>
     </mat-card-header>
     <mat-card-content>
+
+
+      <!-- Username Field -->
       <mat-form-field>
-        <mat-label>User name</mat-label>
-        <input matInput [(ngModel)]="auth.username" name="username" required>
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          [(ngModel)]="auth.username"
+          name="username"
+          required
+          #u="ngModel"
+        />
+        <mat-error *ngIf="u.invalid && u.touched">
+          <span *ngIf="u.errors?.['required']">Username is required.</span>
+        </mat-error>
+        <mat-error *ngIf="errorMessage === 'Username is already taken.'">
+          {{ errorMessage }}
+        </mat-error>
       </mat-form-field>
 
+      <!-- Email Field -->
       <mat-form-field>
         <mat-label>Email</mat-label>
-        <input matInput type="email" [(ngModel)]="auth.email" name="email" required>
+        <input
+          matInput
+          type="email"
+          [(ngModel)]="auth.email"
+          name="email"
+          required
+          pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
+          #e="ngModel"
+        />
+        <mat-error *ngIf="e.invalid && e.touched">
+          <span *ngIf="e.errors?.['required']">Email is required.</span>
+          <span *ngIf="e.errors?.['pattern']">Invalid email format.</span>
+        </mat-error>
       </mat-form-field>
 
+      <!-- Password Field -->
       <mat-form-field>
         <mat-label>Enter your password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="auth.password" name="password" required />
-        <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="auth.password"
+          name="password"
+          required
+          minlength="4"
+          #p="ngModel"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+        >
           <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
+        <mat-error *ngIf="p.invalid && p.touched">
+          <span *ngIf="p.errors?.['required']">Password is required.</span>
+          <span *ngIf="p.errors?.['minlength']">Minimum length is 4.</span>
+        </mat-error>
       </mat-form-field>
 
+      <!-- Confirm Password Field -->
       <mat-form-field>
         <mat-label>Confirm password</mat-label>
-        <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="auth.confirmPassword" name="confirmPassword" required />
+        <input
+          matInput
+          [type]="hide ? 'password' : 'text'"
+          [(ngModel)]="auth.confirmPassword"
+          name="confirmPassword"
+          required
+          #cp="ngModel"
+        />
+        <mat-error *ngIf="cp.invalid && cp.touched">
+          <span *ngIf="cp.errors?.['required']">Confirm password is required.</span>
+        </mat-error>
       </mat-form-field>
+
+      <!-- Validation Error for Password Mismatch -->
+      <mat-error *ngIf="errorMessage === 'Passwords do not match.'" style="margin-top: 10px;">
+        {{ errorMessage }}
+      </mat-error>
     </mat-card-content>
 
     <mat-card-actions>
-      <button type="submit" mat-button color="primary">Register</button>
+     
+      <button type="submit" mat-button color="primary" [disabled]="regForm.invalid">
+        Register
+      </button>
+      <div style="color: red; margin-bottom: 20px;" *ngIf="errorMessage && errorMessage !== 'Passwords do not match.'">
+        {{ errorMessage }}
+      </div>
     </mat-card-actions>
   </mat-card>
+
+  <!-- Global Success/Error Messages -->
+
+   <mat-error *ngIf="errorMessage === 'User already registered.'">
+    {{ errorMessage }}
+  </mat-error>
+  <div style="color: green; margin-top: 10px;" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
 </form>

@@ -1,53 +1,52 @@
-import { Component } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { FormsModule } from '@angular/forms';
-import {HttpClient, HttpHeaders} from '@angular/common/http';  // Import HttpClient
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {FormsModule, NgForm} from '@angular/forms';
+import {AuthService} from '../../services/auth.service';
+import {Router} from '@angular/router';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [MatCardModule, MatButtonModule, MatFormFieldModule,
-    MatInputModule, MatIconModule, FormsModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    FormsModule,
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  auth = {
-    username: '',
-    password: ''
-  };
+  username = '';
+  password = '';
   hide = true;
-  isLoggedIn = false;  // Track login state
+  loading = false;
+  errorMessage = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+  }
 
-  login() {
-    const loginData = {
-      username: this.auth.username,
-      password: this.auth.password
-    };
-
-    this.authService.login(loginData).subscribe(
-      (response) => {
-        console.log('Login successful', response);
-        this.isLoggedIn = true;  // Set login state to true
-        // Store user data or session cookie here if needed
-        this.router.navigate(['/']);  // Redirect to home on successful login
+  login(form: NgForm) {
+    if (form.invalid) return;
+    this.loading = true;
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response) => {
+        this.loading = false;
+        this.router.navigate(['/']);
       },
-      (error) => {
-        console.error('Login failed', error);
-      }
-    );
+      error: (err) => {
+        this.loading = false;
+        this.errorMessage = err; 
+      },
+    });
   }
 
-  logout() {
-    this.isLoggedIn = false;  // Set login state to false
-    // Clear session or cookies here if needed
-    console.log('User logged out');
-  }
 }

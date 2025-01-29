@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>Edit Recipe</h1>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <mat-label>Title</mat-label>
+    <input matInput [(ngModel)]="recipe.title" name="title"
+    (ngModelChange)="validateTitle()"
+    />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="12"
+              [(ngModel)]="recipe.description" name="description" (ngModelChange)="validateDescription()"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Image URL</mat-label>
+    <input matInput [(ngModel)]="recipe.image" name="image"/>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Steps</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="12" [(ngModel)]="recipe.procedure"
+              name="procedure"></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Ingredients</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="3" cdkAutosizeMaxRows="12"
+              [(ngModel)]="recipe.ingredients" name="ingredients"></textarea>
+  </mat-form-field>
+
+  <mat-error *ngIf="titleErrorMessage">{{ titleErrorMessage }}</mat-error>
+  <mat-error *ngIf="descriptionErrorMessage">{{ descriptionErrorMessage }}</mat-error>
+
+</form>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button (click)="saveRecipe()">Update</button>
+</div>

@@ -1,0 +1,30 @@
+<mat-card class="view-recipe-card">
+  <mat-card-header>
+    <mat-card-title>{{ recipe.title }}</mat-card-title>
+  </mat-card-header>
+  <img *ngIf="recipe.image" mat-card-image [src]="recipe.image">
+  <mat-card-content>
+
+    <p><strong>Description:</strong> {{ recipe.description }}</p>
+
+    <!-- Ingredients -->
+    <p><strong>Ingredients:</strong></p>
+    <ul class="ingredients-list">
+      <li *ngFor="let ingredient of formatList(recipe.ingredients)">
+        {{ ingredient }}
+      </li>
+    </ul>
+
+    <!-- Procedure -->
+    <p><strong>Steps:</strong></p>
+    <ol class="procedure-list">
+      <li *ngFor="let step of formatList(recipe.procedure)">
+        {{ step }}
+      </li>
+    </ol>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="close()">Close</button>
+  </mat-card-actions>
+</mat-card>

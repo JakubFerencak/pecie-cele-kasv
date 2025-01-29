@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MainPageComponent } from './main-page.component';
+import { AddRecipeDialogComponent } from './add-recipe-dialog.component';
 
-describe('MainPageComponent', () => {
-  let component: MainPageComponent;
-  let fixture: ComponentFixture<MainPageComponent>;
+describe('AddRecipeDialogComponent', () => {
+  let component: AddRecipeDialogComponent;
+  let fixture: ComponentFixture<AddRecipeDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MainPageComponent]
+      imports: [AddRecipeDialogComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MainPageComponent);
+    fixture = TestBed.createComponent(AddRecipeDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

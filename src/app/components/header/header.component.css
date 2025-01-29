@@ -1,3 +1,55 @@
-.spacer {
-    flex: 1 1 auto;
+mat-toolbar {
+  background-color: #d25b78;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.title {
+  text-align: center;
+  color: #000;
+  font-size: 2em;
+  flex-grow: 1;
+  margin:0 auto;
+ 
+}
+
+.mat-icon {
+  font-size: 2rem;
+}
+
+.home-button, .register-button, .login-button, .add-recipe-button, .logout-button {
+  font-size: 1rem;
+  margin: 5px;
+ 
+}
+
+@media (max-width: 768px) {
+  mat-toolbar {
+    flex-direction: column;
+    align-items: center;
   }
+
+  .title {
+    font-size: 1.6rem;
+    margin: 10px 0;
+  }
+
+  .home-button, .register-button, .login-button, .add-recipe-button, .logout-button {
+    font-size: 1rem;
+    margin: 3px;
+  
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .title {
+    font-size: 1.8rem;
+  }
+
+  .home-button, .register-button, .login-button, .add-recipe-button, .logout-button {
+    font-size: 1.3rem;
+  }
+}

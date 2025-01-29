@@ -1,0 +1,21 @@
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.auto-height-textarea {
+  min-height: 80px;
+  max-height: 200px;
+  overflow-y: auto;
+  resize: none;
+}
+
+.title_error {
+  color: green;
+  margin-left: 2rem;
+}
